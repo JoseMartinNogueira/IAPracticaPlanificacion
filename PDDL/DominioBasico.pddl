@@ -19,3 +19,8 @@
 			(and (not (planificar ?lib))
 	)
 )
+
+
+
+
+;comment
