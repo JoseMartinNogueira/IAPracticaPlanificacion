@@ -1,16 +1,13 @@
 (define (domain libros-domain)
-	(:requirements :fluents)
+	(:requirements :strips :typing :adl :equality)
 
 	(:types libro )
-
-	(:functions
-		(predecesor ?lib - libro)
-	)
 
 	(:predicates
 		(planeado ?lib - libro)
 		(tiene-predecesor ?lib - libro)
 		(libroleido ?lib - libro)
+		(predecesor ?lib - libro)
 	)
 	(:action planear
 		:parameters
@@ -27,7 +24,8 @@
 			)
 		:effect	
 			(forall (?l - libro)
-				(when (and 
+				(when 
+					(and 
 						(tiene-predecesor ?l)
 						(not (planeado (predecesor ?l)))
 						(not (libroleido (predecesor ?l)))
