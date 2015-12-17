@@ -5,9 +5,8 @@
 
 	(:predicates
 		(planeado ?lib - libro)
-		(tiene-predecesor ?lib - libro)
 		(libroleido ?lib - libro)
-		(predecesor ?lib - libro)
+		(predecesor ?lib - libro ?pred - libro)
 	)
 	(:action planear
 		:parameters
@@ -20,19 +19,10 @@
 		:precondition
 			(and 
 				(not (libroleido ?lib))	
-				(not (planeado ?lib)) 
+				(not (planeado ?lib))
+				;(not (predecesor ?lib)) 
 			)
 		:effect	
-			(forall (?l - libro)
-				(when 
-					(and 
-						(tiene-predecesor ?l)
-						(not (planeado (predecesor ?l)))
-						(not (libroleido (predecesor ?l)))
-					)
-					(planeado (predecesor ?l))
-					(planeado ?l)
-				)
-			)
+			(planeado ?lib)
 	)
 )

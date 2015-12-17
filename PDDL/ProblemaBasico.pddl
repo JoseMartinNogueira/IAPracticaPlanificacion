@@ -1,4 +1,4 @@
-(define ((define (problem libros-prob)
+(define (problem libros-prob)
 	
   (:domain libros-domain)
 
@@ -7,11 +7,14 @@
   )
 
   (:init
-    (= (predecesor lib2) lib1)
-    (= (predecesor lib7) lib6)
+    (predecesor lib2 lib1)
+    (predecesor lib7 lib6)
+    (libroleido lib6)
   	
   ) 
 
-  (:goal (forall (?l - libro) (planeado ?l))
+  (:goal (forall (?l - libro) (or 
+                                (planeado ?l)
+                                (libroleido ?l)))
 
-  ))))
+  ))
