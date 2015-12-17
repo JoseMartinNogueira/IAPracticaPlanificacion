@@ -5,7 +5,7 @@
 
 	(:predicates
 		(planeado ?lib - libro)
-		(libroleido ?lib - libro)
+		(libroleido ?lib - libro)s
 		(predecesor ?lib - libro ?pred - libro)
 	)
 	(:action planear
@@ -20,7 +20,17 @@
 			(and 
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
-				;(not (predecesor ?lib)) 
+				(forall (?l - libro) (or
+										(and
+											(predecesor ?lib ?l)
+											(or
+											(libroleido ?l)
+											(planeado ?l)
+											)
+										)
+									  	(not (predecesor ?lib ?l))
+									  )
+				)
 			)
 		:effect	
 			(planeado ?lib)
