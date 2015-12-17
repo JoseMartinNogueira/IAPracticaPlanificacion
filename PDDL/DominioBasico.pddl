@@ -8,7 +8,7 @@
 	)
 
 	(:predicates
-		(planificar ?lib - libro)
+		(planeado ?lib - libro)
 		(tiene-predecesor ?lib - libro)
 		(libroleido ?lib - libro)
 	)
@@ -23,8 +23,18 @@
 		:precondition
 			(and 
 				(not (libroleido ?lib))	
-				(not (planificar ?lib)) 
+				(not (planeado ?lib)) 
 			)
 		:effect	
+			(forall (?l - libro)
+				(when (and 
+						(tiene-predecesor ?l)
+						(not (planeado (predecesor ?l)))
+						(not (libroleido (predecesor ?l)))
+					)
+					(planeado (predecesor ?l))
+					(planeado ?l)
+				)
+			)
 	)
 )
