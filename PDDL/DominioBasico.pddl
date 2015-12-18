@@ -1,21 +1,18 @@
 (define (domain libros-domain)
 	(:requirements :strips :typing :adl :equality)
 
-	(:types libro mes)
+	(:types libro )
 
 	(:predicates
 		(planeado ?lib - libro)
-		(mesocupado ?m - mes)
 		(libroleido ?lib - libro)
 		(predecesor ?lib - libro ?pred - libro)
 	)
 	(:action planear
 		:parameters
-			(?lib - libro
-			 ?m - mes)
+			(?lib - libro)
 		:precondition
-			(and
-				(not (mesocupado ?m)) 
+			(and 
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
 				(forall (?l - libro) (or
@@ -29,11 +26,9 @@
 									  	(not (predecesor ?lib ?l))
 									  )
 				)
+				;(not (predecesor ?lib)) 
 			)
 		:effect	
-			(and
-				(planeado ?lib)
-				(mesocupado ?m)
-			)
+			(planeado ?lib)
 	)
 )
