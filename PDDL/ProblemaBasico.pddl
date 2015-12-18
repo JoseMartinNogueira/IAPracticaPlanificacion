@@ -7,15 +7,20 @@
   )
 
   (:init
+  
+    (quiereleer lib3)
+    (quiereleer lib2)
     (predecesor lib2 lib1)
     (predecesor lib7 lib6)
     (libroleido lib6)
-  	
   ) 
 
-  (:goal (forall (?l - libro) (or 
-                                (planeado ?l)
-                                (libroleido ?l)))
-
+  (:goal (forall (?l - libro) ;;Todos los libros tienen que ser descartados, planeados o leidos
+            (or 
+              (descartado ?l)
+              (planeado ?l)
+              (libroleido ?l)
+            )
+         )
   )
 )
