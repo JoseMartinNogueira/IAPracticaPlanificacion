@@ -1,23 +1,26 @@
 (define (domain libros-domain)
 	(:requirements :strips :typing :adl :equality)
 
-	(:types libro )
+	(:types libro mes)
 
 	(:predicates
 		(planeado ?lib - libro)
-		(libroleido ?lib - libro)s
+		(mesocupado ?m - mes)
+		(libroleido ?lib - libro)
 		(predecesor ?lib - libro ?pred - libro)
 	)
 	(:action planear
 		:parameters
-			(?lib - libro)
+			(?lib - libro
+			 ?m - mes)
 		;;CASOS
 		;;1- No leido y no predecesor
 		;;2- No leido y predecesor leido
 		;;3- No leido y predecesor leido
 		;; IDEA: Taratar los no leidos y si tienen predecesor y no lo ha leido planificar este antes.
 		:precondition
-			(and 
+			(and
+				(not (mesocupado ?m)) 
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
 				(forall (?l - libro) (or
@@ -33,6 +36,9 @@
 				)
 			)
 		:effect	
-			(planeado ?lib)
+			(and
+				(planeado ?lib)
+				(mesocupado ?m)
+			)
 	)
 )
