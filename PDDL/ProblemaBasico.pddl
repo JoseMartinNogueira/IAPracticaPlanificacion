@@ -10,7 +10,7 @@
   
     (quiereleer lib3)
     (quiereleer lib2)
-    (predecesor lib2 lib1)
+    (predecesor lib2 lib4)
     (predecesor lib7 lib6)
     (libroleido lib6)
   ) 
