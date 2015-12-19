@@ -43,18 +43,4 @@
 				(planeado ?lib)
 			)
 	)
-
-	(:action descartar ;; Descartamos el resto de libros
-	  :parameters (?lib - libro)
-
-	  :precondition 
-	  		(and 
-	  			(not (descartado ?lib))
-	  			(not (quiereleer ?lib))
-	  			(not (planeado ?lib))
-	  		)
-	  
-	  :effect 
-	  		(descartado ?lib)
-	)
 )
