@@ -5,35 +5,56 @@
 
 	(:predicates
 		(planeado ?lib - libro)
-		(mesocupado ?m - mes)
 		(libroleido ?lib - libro)
 		(predecesor ?lib - libro ?pred - libro)
+		(quiereleer ?lib - libro)
+		(descartado ?lib - libro)
+		(mesocupado ?m - mes)
 	)
 	(:action planear
 		:parameters
 			(?lib - libro
-			 ?m - mes)
+			?m - mes)
 		:precondition
 			(and
 				(not (mesocupado ?m)) 
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
 				(forall (?l - libro) (or
-										(and
+										(and       ;; Si tiene un predecesor y lo ha leido o ha sido planeado
 											(predecesor ?lib ?l)
 											(or
-											(libroleido ?l)
-											(planeado ?l)
+												(libroleido ?l)
+												(planeado ?l)
 											)
 										)
-									  	(not (predecesor ?lib ?l))
+										(and ;;si es predecesor de algun libro que quiere leer
+											(predecesor ?l ?lib)
+											(quiereleer ?l)
+											;(not (planeado ?l))
+										)
+									  	(not (predecesor ?lib ?l)) ;; no tiene ningun predecesor
 									  )
-				)
+				) 
 			)
-		:effect	
-			(and
-				(planeado ?lib)
+		:effect
+			(and 
 				(mesocupado ?m)
+				(planeado ?lib)
 			)
+	)
+
+	(:action descartar ;; Descartamos el resto de libros
+	  :parameters (?lib - libro)
+
+	  :precondition 
+	  		(and 
+	  			(not (descartado ?lib))
+	  			(not (quiereleer ?lib))
+	  			(not (planeado ?lib))
+	  		)
+	  
+	  :effect 
+	  		(descartado ?lib)
 	)
 )
