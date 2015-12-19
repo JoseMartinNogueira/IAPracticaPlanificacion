@@ -1,4 +1,4 @@
-;Comprobar si consigue assignar teniendo en cuenta los libros leidos
+;Comprobar si consigue respetar varios niveles de predecesores multiples
 (define (problem libros-prob)
   
   (:domain libros-domain)
@@ -10,14 +10,13 @@
 
   (:init
   
-    (quiereleer lib3)
-    (quiereleer lib2)
     (quiereleer lib7)
     (predecesor lib2 lib4)
     (predecesor lib4 lib3)
     (predecesor lib2 lib3)
     (predecesor lib7 lib6)
-    (libroleido lib6)
+    (predecesor lib7 lib2)
+    (predecesor lib4 lib8)
   ) 
 
   (:goal (forall (?l - libro) ;;Todos los libros tienen que ser descartados, planeados o leidos

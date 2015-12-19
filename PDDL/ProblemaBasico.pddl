@@ -15,12 +15,9 @@
     (libroleido lib6)
   ) 
 
-  (:goal (forall (?l - libro) ;;Todos los libros tienen que ser descartados, planeados o leidos
-            (or 
-              (descartado ?l)
-              (planeado ?l)
-              (libroleido ?l)
-            )
-         )
+  (:goal (and
+          (planeado lib3)
+          (planeado lib2)
+          )
   )
 )
