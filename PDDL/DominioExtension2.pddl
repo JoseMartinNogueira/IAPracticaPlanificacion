@@ -1,8 +1,8 @@
 (define (domain libros-domain)
 	(:requirements :strips :typing :adl :equality)
 
-	(:types libro mes)
-
+	(:types libro - libro
+			mes - mes)
 	(:predicates
 		(planeado ?lib - libro)
 		(libroleido ?lib - libro)
@@ -11,7 +11,8 @@
 		(quiereleer ?lib - libro)
 		(descartado ?lib - libro)
 		(mesocupado ?m - mes)
-		(auxiliar ?lib - libro ?m - mes )
+		(siguiente ?m1 - mes ?m2 - mes)
+		(auxiliar ?lib - libro ?m - mes)
 	)
 	(:action planear
 		:parameters
@@ -50,9 +51,11 @@
 	)
 	(:action planearParalelo
 		:parameters
-			(?lib - libro ?m - mes)
+			(?lib - libro ?m - mes ?mAnterior - mes ?mPosterior - mes)
 		:precondition
 			(and
+				(siguiente ?mAnterior ?m)
+				(siguiente ?m ?mPosterior)
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
 				(forall (?pred - libro) (or
@@ -69,7 +72,11 @@
 												(not (paralelo ?paral ?lib))
 											)
 											(and
-												(auxiliar ?paral ?m)
+												(or
+													(auxiliar ?paral ?m)
+													(auxiliar ?paral ?mAnterior)
+													(auxiliar ?paral ?mPosterior)
+												)
 												(or
 													(planeado ?paral)
 													(libroleido ?paral)
