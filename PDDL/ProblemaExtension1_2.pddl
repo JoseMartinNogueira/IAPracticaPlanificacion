@@ -19,13 +19,5 @@
     (predecesor lib4 lib8)
   ) 
 
-  (:goal (forall (?l - libro) ;;Todos los libros tienen que ser descartados, planeados o leidos
-            (or 
-              (descartado ?l)
-              (planeado ?l)
-              (libroleido ?l)
-              ;(forall (?m - mes) (mesocupado ?m))
-            )
-         )
-  )
+  (:goal (planeado lib7))
 )

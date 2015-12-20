@@ -14,6 +14,8 @@
     (quiereleer lib3)
     (quiereleer lib2)
     (quiereleer lib7)
+    (paralelos lib1 lib2)
+    (paralelos lib2 lib14)
     (predecesor lib2 lib4)
     (predecesor lib4 lib3)
     (predecesor lib2 lib3)

@@ -11,6 +11,8 @@
 		(quiereleer ?lib - libro)
 		(descartado ?lib - libro)
 		(mesocupado ?m - mes)
+		(paralelos ?l - libro ?lpar - libro)
+		(planmes ?lib - libro ?m - mes)
 	)
 	(:action planear
 		:parameters
@@ -40,8 +42,36 @@
 			)
 		:effect
 			(and 
+				(planmes ?lib ?m)
 				(mesocupado ?m)
 				(planeado ?lib)
 			)
+	)
+	(:action planearparalelos
+	  :parameters 
+	  	(?lib - libro
+	  	?m - mes)
+	  
+	  :precondition 
+	  	(and 
+	  		(not (libroleido ?lib))
+	  		(not (quiereleer ?lib))
+	  		(not (planeado ?lib))
+	  		(forall (?l - libro)
+				(and
+  					(planmes ?l ?m)
+  					(or
+  						(paralelos ?l ?lib)
+  						(paralelos ?lib ?l)
+  					)
+	  			)	
+	  		)
+	  	)
+	  
+	  :effect 
+	  	(and 
+	  		(planmes ?lib ?m)
+	  		(planeado ?lib)
+	  	)
 	)
 )
