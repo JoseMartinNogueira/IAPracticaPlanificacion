@@ -9,7 +9,6 @@
 		(libroleido ?lib - libro)
 		(predecesor ?lib - libro ?pred - libro)
 		(quiereleer ?lib - libro)
-		(descartado ?lib - libro)
 		(mesocupado ?m - mes)
 	)
 	(:action planear

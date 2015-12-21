@@ -1,4 +1,3 @@
-
 (define (domain libros-domain)
 	(:requirements :strips :typing :adl :equality)
 
@@ -8,70 +7,82 @@
 		(planeado ?lib - libro)
 		(libroleido ?lib - libro)
 		(predecesor ?lib - libro ?pred - libro)
+		(paralelo ?lib1 - libro ?lib2 - libro)
 		(quiereleer ?lib - libro)
 		(descartado ?lib - libro)
 		(mesocupado ?m - mes)
-		(paralelos ?l - libro ?lpar - libro)
-		(planmes ?lib - libro ?m - mes)
+		(auxiliar ?lib - libro ?m - mes )
 	)
 	(:action planear
 		:parameters
-			(?lib - libro
-			?m - mes)
+			(?lib - libro ?m - mes)
 		:precondition
 			(and
 				(not (mesocupado ?m)) 
 				(not (libroleido ?lib))	
 				(not (planeado ?lib))
-				(forall (?l - libro) (or
-										(and       ;; Si tiene un predecesor y lo ha leido o ha sido planeado
-											(predecesor ?lib ?l)
+				(forall (?pred - libro) (or
+											(not (predecesor ?lib ?pred))
 											(or
-												(libroleido ?l)
-												(planeado ?l)
+												(planeado ?pred)
+												(libroleido ?pred)
 											)
 										)
-										(and ;;si es predecesor de algun libro que quiere leer
-											(predecesor ?l ?lib)
-											(quiereleer ?l)
-											;(not (planeado ?l))
+				)
+				(forall (?paral - libro) (or
+											(and
+												(not (planeado ?paral))
+												(not (libroleido ?paral))
+											)
+											(and
+												(not (paralelo ?lib ?paral))
+												(not (paralelo ?paral ?lib))
+											)
 										)
-									  	(not (predecesor ?lib ?l)) ;; no tiene ningun predecesor
-									  )
-				) 
+				)
 			)
 		:effect
 			(and 
-				(planmes ?lib ?m)
 				(mesocupado ?m)
 				(planeado ?lib)
+				(auxiliar ?lib ?m)
 			)
 	)
-	(:action planearparalelos
-	  :parameters 
-	  	(?lib - libro
-	  	?m - mes)
-	  
-	  :precondition 
-	  	(and 
-	  		(not (libroleido ?lib))
-	  		(not (quiereleer ?lib))
-	  		(not (planeado ?lib))
-	  		(forall (?l - libro)
-				(and
-  					(planmes ?l ?m)
-  					(or
-  						(paralelos ?l ?lib)
-  						(paralelos ?lib ?l)
-  					)
-	  			)	
-	  		)
-	  	)
-	  
-	  :effect 
-	  	(and 
-	  		(planmes ?lib ?m)
-	  		(planeado ?lib)
-	  	)
+	(:action planearParalelo
+		:parameters
+			(?lib - libro ?m - mes)
+		:precondition
+			(and
+				(not (libroleido ?lib))	
+				(not (planeado ?lib))
+				(forall (?pred - libro) (or
+											(not (predecesor ?lib ?pred))
+											(or
+												(planeado ?pred)
+												(libroleido ?pred)
+											)
+										)
+				)
+				(forall (?paral - libro) (or
+											(and
+												(not (paralelo ?lib ?paral))
+												(not (paralelo ?paral ?lib))
+											)
+											(and
+												(auxiliar ?paral ?m)
+												(or
+													(planeado ?paral)
+													(libroleido ?paral)
+												)
+											)
+										)
+				)
+			)
+		:effect
+			(and 
+				(mesocupado ?m)
+				(planeado ?lib)
+				(auxiliar ?lib ?m)
+			)
 	)
 )
