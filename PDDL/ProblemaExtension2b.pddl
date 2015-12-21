@@ -1,4 +1,3 @@
-;Comprobar si consigue assignar teniendo en cuenta los libros leidos
 (define (problem libros-prob)
   
   (:domain libros-domain)
@@ -14,19 +13,25 @@
     (= (mesAsig lib1) 0)(= (mesAsig lib2) 0)(= (mesAsig lib3) 0)(= (mesAsig lib4) 0)(= (mesAsig lib5) 0)(= (mesAsig lib6) 0)
     (= (mesAsig lib7) 0)(= (mesAsig lib8) 0)(= (mesAsig lib9) 0)(= (mesAsig lib10) 0)(= (mesAsig lib11) 0)(= (mesAsig lib12) 0)
     (= (mesAsig lib13) 0)(= (mesAsig lib14) 0)
-    (quiereleer lib3)
-    (quiereleer lib2)
-    (quiereleer lib7)
-    (predecesor lib2 lib4)
+    
+    (quiereleer lib4)
     (predecesor lib4 lib3)
-    (paralelo lib7 lib4)
-    (libroleido lib6)
+    (predecesor lib3 lib2)
+    (predecesor lib2 lib1)
+    (paralelo lib2 lib14)
+    (paralelo lib4 lib13)
+    (predecesor lib13 lib12)
+    (predecesor lib14 lib13)
   ) 
 
-  (:goal (and
-            (planeado lib3)
-            (planeado lib2)
-            (planeado lib7)
-         )
+  (:goal (forall (?lib - libro) 
+            (or 
+              (not (quiereleer ?lib))
+              (and
+                (quiereleer ?lib)
+                (planeado ?lib)
+              )
+            )
+          )
   )
 )
