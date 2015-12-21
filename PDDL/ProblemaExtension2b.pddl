@@ -4,7 +4,7 @@
 
   (:objects
       lib1 lib2 lib3 lib4 lib5 lib6 lib7 lib8 lib9 lib10 lib11 lib12 lib13 lib14 - libro
-      mes1 mes2 mes3 mes4 mes5 mes6 mes7 mes8 mes9 mes10 mes11 mes12 - mes
+      mes12 mes11 mes10 mes9 mes8 mes7 mes6 mes5 mes4 mes3 mes2 mes1 - mes
   )
 
   (:init
@@ -18,7 +18,7 @@
     (predecesor lib4 lib3)
     (predecesor lib3 lib2)
     (predecesor lib2 lib1)
-    (paralelo lib2 lib14)
+    (paralelo lib3 lib14)
     (paralelo lib4 lib13)
     (predecesor lib13 lib12)
     (predecesor lib14 lib13)
