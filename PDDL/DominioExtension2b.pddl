@@ -5,7 +5,6 @@
 			mes - mes)
 	(:functions
 		(numMes ?m - mes)
-		(numPag ?m - mes)
 		(mesAsig ?lib - libro)
 	)
 	(:predicates
