@@ -113,7 +113,7 @@
 										 	)
 										 	(or
 										 		(libroleido ?paral)
-										 		(not (planeado ?lib))
+										 		(not (planeado ?paral))
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
@@ -163,7 +163,7 @@
 										 	)
 										 	(or
 										 		(libroleido ?paral)
-										 		(not (planeado ?lib))
+										 		(not (planeado ?paral))
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
