@@ -5,7 +5,6 @@
 			mes - mes)
 	(:functions
 		(numMes ?m - mes)
-		(numPag ?m - mes)
 		(mesAsig ?lib - libro)
 	)
 	(:predicates
@@ -23,12 +22,18 @@
 			(and
 				(not (libroleido ?lib))
 				(not (planeado ?lib))
-				(forall (?pred - libro) (not (predecesor ?lib ?pred))
+				(forall (?pred - libro) (or
+											(not (predecesor ?lib ?pred))
+											(libroleido ?pred)
+										)
 				)
-				(forall (?paral - libro) (and
-											(not (paralelo ?lib ?paral))
-											(not (paralelo ?paral ?lib))
-										 )
+				(forall (?paral - libro) (or
+											(and
+												(not (paralelo ?lib ?paral))
+												(not (paralelo ?paral ?lib))
+											 )
+											(libroleido ?paral)
+										)
 				)
 			)
 		:effect
@@ -59,10 +64,13 @@
 											)
 										)
 				)
-				(forall (?paral - libro) (and
-											(not (paralelo ?lib ?paral))
-											(not (paralelo ?paral ?lib))
-										 )
+				(forall (?paral - libro) (or
+											(and
+												(not (paralelo ?lib ?paral))
+												(not (paralelo ?paral ?lib))
+											 )
+											(libroleido ?paral)
+										)
 				)
 			)
 		:effect
@@ -79,7 +87,10 @@
 			(and
 				(not (libroleido ?lib))
 				(not (planeado ?lib))
-				(forall (?pred - libro) (not (predecesor ?lib ?pred))
+				(forall (?pred - libro) (or
+											(not (predecesor ?lib ?pred))
+											(libroleido ?pred)
+										)
 				)
 				(forall (?paral - libro) (or
 											(and
@@ -87,6 +98,7 @@
 												(not (paralelo ?paral ?lib))
 										 	)
 										 	(or
+										 		(libroleido ?paral)
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
@@ -128,6 +140,7 @@
 												(not (paralelo ?paral ?lib))
 										 	)
 										 	(or
+										 		(libroleido ?paral)
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
@@ -141,5 +154,4 @@
 				(increase (mesAsig ?lib) (numMes ?m))
 			)
 	)
-	;; Falta poner que un paralelo o pred ya está leído
 )
