@@ -38,6 +38,13 @@
 			)
 		:effect
 			(and 
+				(forall (?paral - libro) (when (or 
+                                	(paralelo ?lib ?paral)
+									(paralelo ?paral ?lib)
+                              )
+                            (quiereleer ?paral)
+                        )
+				)
 				(planeado ?lib)
 				(increase (mesAsig ?lib) (numMes ?m))
 			)
@@ -75,6 +82,13 @@
 			)
 		:effect
 			(and 
+				(forall (?paral - libro) (when (or 
+                                	(paralelo ?lib ?paral)
+									(paralelo ?paral ?lib)
+                              )
+                            (quiereleer ?paral)
+                        )
+				)
 				(planeado ?lib)
 				(increase (mesAsig ?lib) (numMes ?m))
 			)
@@ -99,6 +113,7 @@
 										 	)
 										 	(or
 										 		(libroleido ?paral)
+										 		(not (planeado ?lib))
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
@@ -108,6 +123,13 @@
 			)
 		:effect
 			(and 
+				(forall (?paral - libro) (when (or 
+                                	(paralelo ?lib ?paral)
+									(paralelo ?paral ?lib)
+                              )
+                            (quiereleer ?paral)
+                        )
+				)
 				(planeado ?lib)
 				(increase (mesAsig ?lib) (numMes ?m))
 			)
@@ -141,6 +163,7 @@
 										 	)
 										 	(or
 										 		(libroleido ?paral)
+										 		(not (planeado ?lib))
 											 	(= (numMes ?m) (mesAsig ?paral))
 											 	(= (numMes ?m) (+ (mesAsig ?paral) 1))
 											 	(= (numMes ?m) (- (mesAsig ?paral) 1))
@@ -150,6 +173,13 @@
 			)
 		:effect
 			(and 
+				(forall (?paral - libro) (when (or 
+                                	(paralelo ?lib ?paral)
+									(paralelo ?paral ?lib)
+                              )
+                            (quiereleer ?paral)
+                        )
+				)
 				(planeado ?lib)
 				(increase (mesAsig ?lib) (numMes ?m))
 			)
